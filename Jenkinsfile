@@ -35,11 +35,7 @@ pipeline {
                 docker {
                     image 'node:20-alpine'
                     reuseNode true
-                    args '''
-                        -e HOME=/tmp
-                        -e npm_config_cache=/node-cache/npm
-                        -v cicd-node-cache:/node-cache
-                    '''
+                    args '-e HOME=/tmp -e npm_config_cache=/tmp/.npm'
                 }
             }
 
@@ -67,11 +63,7 @@ pipeline {
                 docker {
                     image 'node:20-alpine'
                     reuseNode true
-                    args '''
-                        -e HOME=/tmp
-                        -e npm_config_cache=/node-cache/npm
-                        -v cicd-node-cache:/node-cache
-                    '''
+                    args '-e HOME=/tmp -e npm_config_cache=/tmp/.npm'
                 }
             }
 
@@ -104,11 +96,7 @@ pipeline {
                 docker {
                     image 'node:20-alpine'
                     reuseNode true
-                    args '''
-                        -e HOME=/tmp
-                        -e npm_config_cache=/node-cache/npm
-                        -v cicd-node-cache:/node-cache
-                    '''
+                    args '-e HOME=/tmp -e npm_config_cache=/tmp/.npm'
                 }
             }
 
