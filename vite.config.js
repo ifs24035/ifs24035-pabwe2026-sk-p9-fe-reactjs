@@ -21,6 +21,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), tailwindcss()],
+    build: {
+      sourcemap: true,
+    },
     server: {
       port,
       proxy: {
