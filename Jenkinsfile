@@ -8,8 +8,13 @@ pipeline {
         timeout(time: 20, unit: 'MINUTES')
     }
 
+    // Jika Jenkins kamu memakai NodeJS plugin, aktifkan blok ini dan samakan
+    // namanya dengan Manage Jenkins > Tools > NodeJS installations.
+    // tools {
+    //     nodejs 'NodeJS'
+    // }
+
     environment {
-        IMAGE_NAME = 'ifs24035-pabwe2026-sk-p9-fe-reactjs'
         CI = 'true'
     }
 
@@ -20,62 +25,47 @@ pipeline {
             }
         }
 
-        // Install, test, dan build dijalankan di container Node 20 (butuh Docker Pipeline plugin)
-        stage('Install, Test & Build') {
-            agent {
-                docker {
-                    image 'node:20-alpine'
-                    reuseNode true
-                    args '-e HOME=$WORKSPACE'
-                }
+        stage('Cek Environment') {
+            steps {
+                sh 'node -v && npm -v'
             }
-            stages {
-                stage('Install') {
-                    steps {
-                        sh 'npm ci --no-audit --no-fund'
-                    }
-                }
-                stage('Test') {
-                    steps {
-                        sh 'npx vitest run --coverage --reporter=default --reporter=junit --outputFile.junit=reports/junit.xml'
-                    }
-                    post {
-                        always {
-                            junit allowEmptyResults: true, testResults: 'reports/junit.xml'
-                            archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**'
-                        }
-                    }
-                }
-                stage('Build') {
-                    steps {
-                        sh 'npm run build'
-                    }
-                    post {
-                        success {
-                            archiveArtifacts artifacts: 'dist/**', fingerprint: true
-                        }
-                    }
+        }
+
+        stage('Install') {
+            steps {
+                sh 'npm ci --no-audit --no-fund'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npx vitest run --coverage --reporter=default --reporter=junit --outputFile.junit=reports/junit.xml'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'reports/junit.xml'
                 }
             }
         }
 
-        // Validasi bahwa Dockerfile bisa membangun image (butuh Docker di node Jenkins)
-        stage('Docker Build') {
+        stage('Build') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} -t ${IMAGE_NAME}:latest .'
+                sh 'npm run build'
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'dist/**', fingerprint: true
+                }
             }
         }
     }
 
     post {
         success {
-            echo "Build #${env.BUILD_NUMBER} sukses. Image: ${env.IMAGE_NAME}:${env.BUILD_NUMBER}"
+            echo "Build #${env.BUILD_NUMBER} sukses."
         }
         failure {
             echo "Build #${env.BUILD_NUMBER} gagal. Periksa Console Output."
-        }
-        always {
-            cleanWs(deleteDirs: true, notFailBuild: true)
         }
     }
 }
