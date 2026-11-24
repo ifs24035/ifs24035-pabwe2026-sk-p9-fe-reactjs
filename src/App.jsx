@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import useTheme from './hooks/useTheme'
 import apiHelper from './helpers/apiHelper'
 import { showErrorAlert, showConfirmDialog } from './helpers/toolsHelper'
@@ -9,12 +9,12 @@ import blogApi from './features/blog/api/blogApi'
 import adminApi from './features/admin/api/adminApi'
 import StickyNavbar from './features/blog/components/StickyNavbar'
 import PublicArticleList from './features/blog/components/PublicArticleList'
-import PublicArticleDetail from './features/blog/components/PublicArticleDetail'
 import AuthorDashboard from './features/blog/components/AuthorDashboard'
 import AdminDashboard from './features/admin/components/AdminDashboard'
-import PostModal from './features/blog/modals/PostModal'
-import AiPostGeneratorModal from './features/blog/modals/AiPostGeneratorModal'
 
+const PublicArticleDetail = lazy(() => import('./features/blog/components/PublicArticleDetail'))
+const PostModal = lazy(() => import('./features/blog/modals/PostModal'))
+const AiPostGeneratorModal = lazy(() => import('./features/blog/modals/AiPostGeneratorModal'))
 const SLUG_PATTERN = /^\/posts\/([^/]+)\/?$/
 
 // Menentukan halaman yang ditampilkan berdasarkan path dan pengguna aktif
@@ -345,7 +345,11 @@ export default function App() {
 
         {view === 'detail' && (
           <div className="max-w-4xl mx-auto">
-            <PublicArticleDetail post={detail} loading={detailLoading} onBack={() => navigate('/')} />
+            <Suspense
+              fallback={<p className="text-center text-sm text-slate-600 py-16">Memuat artikel...</p>}
+            >
+              <PublicArticleDetail post={detail} loading={detailLoading} onBack={() => navigate('/')} />
+            </Suspense>
           </div>
         )}
 
@@ -377,25 +381,29 @@ export default function App() {
       )}
 
       {postModal.open && (
-        <PostModal
-          isOpen={true}
-          post={postModal.post}
-          initialData={postModal.initial}
-          categories={categories}
-          onClose={() => setPostModal(CLOSED_POST_MODAL)}
-          onSave={handleSavePost}
-        />
+        <Suspense fallback={null}>
+          <PostModal
+            isOpen={true}
+            post={postModal.post}
+            initialData={postModal.initial}
+            categories={categories}
+            onClose={() => setPostModal(CLOSED_POST_MODAL)}
+            onSave={handleSavePost}
+          />
+        </Suspense>
       )}
 
       {aiOpen && (
-        <AiPostGeneratorModal
-          isOpen={true}
-          categories={categories}
-          loading={aiLoading}
-          onClose={() => setAiOpen(false)}
-          onGenerate={handleGenerateAi}
-          onApply={handleApplyAi}
-        />
+        <Suspense fallback={null}>
+          <AiPostGeneratorModal
+            isOpen={true}
+            categories={categories}
+            loading={aiLoading}
+            onClose={() => setAiOpen(false)}
+            onGenerate={handleGenerateAi}
+            onApply={handleApplyAi}
+          />
+        </Suspense>
       )}
     </div>
   )

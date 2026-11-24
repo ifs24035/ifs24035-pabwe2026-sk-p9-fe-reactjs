@@ -298,7 +298,7 @@ describe('App Integration', () => {
     await screen.findByTestId('author-dashboard')
 
     fireEvent.click(screen.getByText('Tambah Artikel'))
-    expect(screen.getByText('Tulis Artikel Baru')).toBeInTheDocument()
+    expect(await screen.findByText('Tulis Artikel Baru')).toBeInTheDocument()
     fireEvent.click(screen.getByText('Batal'))
     expect(screen.queryByTestId('post-modal')).not.toBeInTheDocument()
 
@@ -328,7 +328,7 @@ describe('App Integration', () => {
 
     fireEvent.click(screen.getByTestId('kebab-1'))
     fireEvent.click(screen.getByText('Edit'))
-    expect(screen.getByText('Edit Artikel')).toBeInTheDocument()
+    expect(await screen.findByText('Edit Artikel')).toBeInTheDocument()
 
     fireEvent.change(screen.getByLabelText('Judul Artikel'), { target: { value: 'Judul Diubah' } })
     fireEvent.click(screen.getByText('Simpan Artikel'))
@@ -347,7 +347,7 @@ describe('App Integration', () => {
     await screen.findByTestId('author-dashboard')
 
     fireEvent.click(screen.getByText('Tambah Artikel'))
-    fireEvent.change(screen.getByLabelText('Judul Artikel'), { target: { value: 'X' } })
+    fireEvent.change(await screen.findByLabelText('Judul Artikel'), { target: { value: 'X' } })
     fireEvent.click(screen.getByText('Simpan Artikel'))
 
     await waitFor(() => errorAlertCalled('gagal simpan'))
@@ -429,7 +429,7 @@ describe('App Integration', () => {
     await screen.findByTestId('author-dashboard')
 
     fireEvent.click(screen.getByText('AI Generator'))
-    expect(screen.getByTestId('ai-post-modal')).toBeInTheDocument()
+    expect(await screen.findByTestId('ai-post-modal')).toBeInTheDocument()
 
     fireEvent.change(screen.getByLabelText('Topik Artikel'), { target: { value: 'Tren Web' } })
     fireEvent.click(screen.getByText('Hasilkan Artikel via AI'))
@@ -440,7 +440,7 @@ describe('App Integration', () => {
 
     fireEvent.click(screen.getByText('Terapkan ke Editor'))
     expect(screen.queryByTestId('ai-post-modal')).not.toBeInTheDocument()
-    expect(screen.getByText('Tulis Artikel Baru')).toBeInTheDocument()
+    expect(await screen.findByText('Tulis Artikel Baru')).toBeInTheDocument()
     expect(screen.getByLabelText('Judul Artikel')).toHaveValue('Judul AI')
     expect(screen.getByTestId('mock-editor')).toHaveValue('## Isi AI')
 
@@ -460,7 +460,7 @@ describe('App Integration', () => {
     await screen.findByTestId('author-dashboard')
 
     fireEvent.click(screen.getByText('AI Generator'))
-    fireEvent.change(screen.getByLabelText('Topik Artikel'), { target: { value: 'Topik' } })
+    fireEvent.change(await screen.findByLabelText('Topik Artikel'), { target: { value: 'Topik' } })
     fireEvent.click(screen.getByText('Hasilkan Artikel via AI'))
 
     await waitFor(() => errorAlertCalled('AI down'))

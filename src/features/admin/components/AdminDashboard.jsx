@@ -62,10 +62,10 @@ export default function AdminDashboard({ users, posts, onLoadUserPosts }) {
           </div>
         </div>
         <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs flex items-center gap-3">
-          <IconCircleCheck size={22} className="text-emerald-600" />
+          <IconCircleCheck size={22} className="text-emerald-700" />
           <div>
             <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Total Terbit</p>
-            <p className="text-2xl font-black text-emerald-600" data-testid="admin-total-published">
+            <p className="text-2xl font-black text-emerald-700" data-testid="admin-total-published">
               {totalPublished}
             </p>
           </div>

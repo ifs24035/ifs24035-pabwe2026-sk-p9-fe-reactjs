@@ -31,14 +31,14 @@ export default function AuthPage({
   }
 
   return (
-    <div
+    <main
       className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center p-4 transition-colors"
       data-testid="auth-page"
     >
       <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-200 dark:border-slate-800 space-y-6">
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-primary-600 text-white font-bold text-xl flex items-center justify-center mx-auto shadow-md">
-            T
+          <div aria-hidden="true" className="w-12 h-12 rounded-2xl bg-primary-600 text-white font-bold text-xl flex items-center justify-center mx-auto shadow-md">
+            D
           </div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
             {mode === 'login' ? 'Masuk ke Delcom Blog' : 'Daftar Akun Penulis'}
@@ -182,6 +182,6 @@ export default function AuthPage({
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

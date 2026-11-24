@@ -63,7 +63,7 @@ export default function AuthorDashboard({ posts, stats, onCreate, onAiGenerate, 
                   <tr key={post.id} data-testid={`post-row-${post.id}`}>
                     <td className="px-5 py-3.5">
                       <p className="font-semibold text-slate-900 dark:text-slate-100">{post.title}</p>
-                      <p className="text-xs text-slate-400">/{post.slug}</p>
+                      <p className="text-xs text-slate-500">/{post.slug}</p>
                     </td>
                     <td className="px-5 py-3.5 text-slate-600 dark:text-slate-300">{post.category}</td>
                     <td className="px-5 py-3.5">

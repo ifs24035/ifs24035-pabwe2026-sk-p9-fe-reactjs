@@ -26,7 +26,7 @@ export default function PostStats({ stats }) {
 
       {/* Total Terbit */}
       <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs flex items-center space-x-3.5 transition-colors">
-        <div className="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-100 dark:border-emerald-900/40">
+        <div className="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-100 dark:border-emerald-900/40">
           <IconCircleCheck size={20} />
         </div>
         <div>
@@ -34,17 +34,17 @@ export default function PostStats({ stats }) {
             Total Terbit
           </span>
           <div className="flex items-baseline space-x-1.5 mt-0.5">
-            <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400" data-testid="stat-terbit">
+            <span className="text-2xl font-black text-emerald-700 dark:text-emerald-400" data-testid="stat-terbit">
               {total_selesai}
             </span>
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">terbit</span>
+            <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">terbit</span>
           </div>
         </div>
       </div>
 
       {/* Belum Selesai (Draf) */}
       <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs flex items-center space-x-3.5 transition-colors">
-        <div className="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-100 dark:border-amber-900/40">
+        <div className="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-100 dark:border-amber-900/40">
           <IconPencilMinus size={20} />
         </div>
         <div>
@@ -52,10 +52,10 @@ export default function PostStats({ stats }) {
             Belum Selesai
           </span>
           <div className="flex items-baseline space-x-1.5 mt-0.5">
-            <span className="text-2xl font-black text-amber-600 dark:text-amber-400" data-testid="stat-draf">
+            <span className="text-2xl font-black text-amber-700 dark:text-amber-400" data-testid="stat-draf">
               {belum_selesai}
             </span>
-            <span className="text-xs text-amber-600 dark:text-amber-400 font-medium">draf</span>
+            <span className="text-xs text-amber-700 dark:text-amber-400 font-medium">draf</span>
           </div>
         </div>
       </div>

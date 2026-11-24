@@ -23,6 +23,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), tailwindcss()],
     build: {
       sourcemap: true,
+      target: 'esnext',
     },
     server: {
       port,
